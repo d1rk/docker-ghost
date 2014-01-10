@@ -8,27 +8,25 @@ config = {
     // ### Development **(default)**
     development: {
         // The url to use when providing links to the site, E.g. in RSS and email.
-        url: 'http://my-ghost-blog.com',
+        url: 'http://ghost.politkz.com',
 
         // Example mail config
         // Visit http://docs.ghost.org/mail for instructions
         // ```
-        //  mail: {
-        //      transport: 'SMTP',
-        //      options: {
-        //          service: 'Mailgun',
-        //          auth: {
-        //              user: '', // mailgun username
-        //              pass: ''  // mailgun password
-        //          }
-        //      }
-        //  },
-        // ```
-
+        mail: {
+	    transport: 'sendmail',
+            fromaddress: 'no-reply@politkz.com',
+            options: {}
+	},
         database: {
-            client: 'sqlite3',
-            connection: {
-                filename: path.join(__dirname, '/content/data/ghost-dev.db')
+            client: 'mysql',
+	    connection: {
+            	host: '172.17.42.1',  // linked container
+            	port: 3306,
+            	user: 'ghost',
+		password: 'qrS4L5Y6l2nT',
+            	database: 'ghost',
+            	charset: 'utf8'
             },
             debug: false
         },
@@ -44,18 +42,27 @@ config = {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
-        url: 'http://my-ghost-blog.com',
-        mail: {},
+        url: 'http://ghost.politkz.com',
+        mail: {
+            transport: 'sendmail',
+            fromaddress: 'no-reply@politkz.com',
+            options: {}
+        },
         database: {
-            client: 'sqlite3',
+            client: 'mysql',
             connection: {
-                filename: path.join(__dirname, '/content/data/ghost.db')
+                host: '172.17.42.1',  // linked container
+                port: 3306,
+                user: 'ghost',
+                password: 'qrS4L5Y6l2nT',
+                database: 'ghost',
+                charset: 'utf8'
             },
             debug: false
         },
         server: {
             // Host to be passed to node's `net.Server#listen()`
-            host: '127.0.0.1',
+            host: '0.0.0.0',
             // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
             port: '2368'
         }
