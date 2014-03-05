@@ -8,25 +8,20 @@ config = {
     // ### Development **(default)**
     development: {
         // The url to use when providing links to the site, E.g. in RSS and email.
-        url: 'http://ghost.politkz.com',
+        url: 'http://blog.bruensicke.com',
 
         // Example mail config
         // Visit http://docs.ghost.org/mail for instructions
         // ```
         mail: {
 	    transport: 'sendmail',
-            fromaddress: 'no-reply@politkz.com',
+            fromaddress: 'no-reply@bruensicke.com',
             options: {}
 	},
         database: {
-            client: 'mysql',
-	    connection: {
-            	host: '172.17.42.1',  // linked container
-            	port: 3306,
-            	user: 'ghost',
-		password: 'qrS4L5Y6l2nT',
-            	database: 'ghost',
-            	charset: 'utf8'
+            client: 'sqlite3',
+            connection: {
+                filename: path.join(__dirname, '/content/data/ghost-dev.db')
             },
             debug: false
         },
@@ -42,21 +37,16 @@ config = {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
-        url: 'http://ghost.politkz.com',
+        url: 'http://blog.bruensicke.com',
         mail: {
             transport: 'sendmail',
-            fromaddress: 'no-reply@politkz.com',
+            fromaddress: 'no-reply@bruensicke.com',
             options: {}
         },
         database: {
-            client: 'mysql',
+            client: 'sqlite3',
             connection: {
-                host: '172.17.42.1',  // linked container
-                port: 3306,
-                user: 'ghost',
-                password: 'qrS4L5Y6l2nT',
-                database: 'ghost',
-                charset: 'utf8'
+                filename: path.join(__dirname, '/content/data/ghost-dev.db')
             },
             debug: false
         },
